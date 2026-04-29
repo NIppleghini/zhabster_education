@@ -3,6 +3,7 @@ from selenium import webdriver
 options = webdriver.EdgeOptions()
 from selenium.webdriver.common.by import By
 import pytest
+import time
 
 
 
@@ -24,3 +25,14 @@ def test_open_s6(browser):
 	galaxy_s6.click()
 	title = browser.find_element(By.CSS_SELECTOR, value='h2')
 	assert title.text == 'Samsung galaxy s6'
+
+
+def test_two_monitors(browser):
+    browser.get('https://www.demoblaze.com/')
+	monitor_link = browser.find_element(By.CSS_SELECTOR, value="[onclick=\"byCat('monitor')\"]")
+    monitor_link.click()
+    
+    time.sleep(2)
+    monitors = browser.find_elements(By.CSS_SELECTOR, value='.card')
+    assert len(monitors) == 2
+
